@@ -39,5 +39,5 @@ make test
 
 ## Next Steps
 
-Design [Design](docs/design.md)
+[Reference](docs/reference.md)
 

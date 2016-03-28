@@ -1,9 +1,9 @@
-# Design
+# Reference
 
 Assets are currently stored in MongoDB GridFS.  The GridFS collections for the assets default
 to the name *vcsfs.files* and *vcs.chunks*
 
-## Asset Document Schema
+### Asset Document Schema
 
 Here is a what a typical record will look like in GridFS for a recording metadata.
 
