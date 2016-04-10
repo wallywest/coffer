@@ -3,6 +3,9 @@
 Assets are currently stored in MongoDB GridFS.  The GridFS collections for the assets default
 to the name *vcsfs.files* and *vcs.chunks*
 
+
+### Recording metatdata 
+
 ### Asset Document Schema
 
 Here is a what a typical record will look like in GridFS for a recording metadata.
@@ -27,6 +30,7 @@ Here is a what a typical record will look like in GridFS for a recording metadat
 }
 ```
 
+
 |Key | Description |
 | --- | --- |
 | _id | ObjectId given to asset by MongoDB |
@@ -40,3 +44,18 @@ Here is a what a typical record will look like in GridFS for a recording metadat
 | metatdata.fileSize | size of the recorded asset, same as length |
 | metadata.mimeType | mimetype of the asset.  Only supports audio/wav currently |
 | metatdata.downloadUrl | internal address mapping for an asset.  Used by mediaserver |
+
+
+Coffer APIs
+===========
+
+These endpoints are assumed to be forwarded internally from the rest public api
+
+
+### Get a Recording: ``GET /Account/:accountId/Recordings/:recordingId``
+
+### Download and Asset: ``GET /Account/:accountId/Recordings/:recordingId/Download``
+
+### List Recordings: ``GET /Account/:accountId/Recordings``
+
+### Delete a Recording: ``DELETE /Account/:accountId/Recordings``
