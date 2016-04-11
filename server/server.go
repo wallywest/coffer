@@ -13,19 +13,20 @@ import (
 
 	"gitlab.vailsys.com/jerny/coffer/cmd/coffer/options"
 	"gitlab.vailsys.com/jerny/coffer/pkg/logger"
-	"gitlab.vailsys.com/jerny/coffer/pkg/storage"
+	"gitlab.vailsys.com/jerny/coffer/recording"
 )
 
 type CofferServer struct {
-	recordingRepo   recording.Repo
-	storageProvider *storage.GridFSProvider
-	config          *options.CofferConfig
+	recordingRepo recording.RecordingRepo
+	assetRepo     recording.AssetRepo
+	Config        *options.CofferConfig
 }
 
-func NewCofferServer(opts *options.CofferConfig, provider *storage.GridFSProvider) (*CofferServer, error) {
+func NewCofferServer(opts *options.CofferConfig, recordingRepo recording.RecordingRepo, assetRepo recording.AssetRepo) (*CofferServer, error) {
 	return &CofferServer{
-		recordingRepo:   nil,
-		storageProvider: provider,
+		recordingRepo: recordingRepo,
+		assetRepo:     assetRepo,
+		Config:        opts,
 	}, nil
 }
 
@@ -61,7 +62,7 @@ func (c *CofferServer) Run() error {
 func (c *CofferServer) listRecordings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	accountId := ps.ByName("accountId")
 
-	recordings, err := c.RecordingRepo.ListRecordings(accountId)
+	recordings, _, err := c.recordingRepo.List(accountId)
 	if err != nil {
 		c.writeError(w, err)
 		return
@@ -71,11 +72,27 @@ func (c *CofferServer) listRecordings(w http.ResponseWriter, r *http.Request, ps
 }
 
 func (c *CofferServer) getRecording(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	//accountId := ps.ByName("accountId")
+	accountId := ps.ByName("accountId")
+	recordingId := ps.ByName("recordingId")
+
+	recording, err := c.recordingRepo.Get(accountId, recordingId)
+	if err != nil {
+		c.writeError(w, err)
+		return
+	}
+
+	writeResponseWithBody(w, http.StatusOK, recording)
 }
 
 func (c *CofferServer) downloadRecording(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	//accountId := ps.ByName("accountId")
+	accountId := ps.ByName("accountId")
+	recordingId := ps.ByName("recordingId")
+
+	gfsfile, err := c.assetRepo.GetFile(accountId, recordingId)
+	if err != nil {
+		c.writeError(w, err)
+		return
+	}
 }
 
 func (c *CofferServer) writeError(w http.ResponseWriter, err error) {
