@@ -7,9 +7,9 @@ import (
 
 	"gitlab.vailsys.com/jerny/coffer/cmd/coffer/options"
 	"gitlab.vailsys.com/jerny/coffer/pkg/logger"
-	"gitlab.vailsys.com/jerny/coffer/pkg/storage"
-	"gitlab.vailsys.com/jerny/coffer/pkg/storage/mongo"
+	"gitlab.vailsys.com/jerny/coffer/recording"
 	"gitlab.vailsys.com/jerny/coffer/server"
+	"gitlab.vailsys.com/jerny/coffer/storage/driver/mongo"
 
 	"github.com/spf13/pflag"
 )
@@ -31,8 +31,8 @@ func main() {
 	}
 	defer provider.Close()
 
-	recordingRepo := storage.NewMongoRecordingRepo(opt.MongoConfig, provider)
-	assetRepo := storage.NewGridFSRepo(opts.MongoConfig, provider)
+	recordingRepo := recording.NewMongoRecordingRepo(opt.MongoConfig, provider)
+	assetRepo := recording.NewGridFSRepo(opt.MongoConfig, provider)
 
 	if err != nil {
 		logger.Logger.Fatalf(err.Error())

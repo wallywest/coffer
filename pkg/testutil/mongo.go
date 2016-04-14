@@ -2,6 +2,7 @@ package testutil
 
 import (
 	"fmt"
+	"io"
 	"os"
 
 	"github.com/mongodb/mongo-tools/common/db"
@@ -89,7 +90,7 @@ func SeedWithFile(filePath string) (uint64, error) {
 	return numDocs, nil
 }
 
-func SeedAsset(filePath string) error {
+func SeedAsset(fileName, filePath string) error {
 	session := mongoServer.Session()
 	defer session.Close()
 	servers := session.LiveServers()
@@ -109,8 +110,9 @@ func SeedAsset(filePath string) error {
 
 	inputOpts := &mongofiles.InputOptions{}
 	storageOpts := &mongofiles.StorageOptions{
-		DB:           opts.DB,
-		GridFSPrefix: "testfs",
+		DB:            opts.DB,
+		GridFSPrefix:  "testfs",
+		LocalFileName: filePath,
 	}
 
 	mf := mongofiles.MongoFiles{
@@ -119,10 +121,36 @@ func SeedAsset(filePath string) error {
 		SessionProvider: sessionProvider,
 		InputOptions:    inputOpts,
 		Command:         "put",
-		FileName:        filePath,
+		FileName:        fileName,
 	}
 
 	_, err = mf.Run(true)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func SeedAssetWithMeta(fileName string, file *os.File, meta interface{}) error {
+	session := mongoServer.Session()
+	defer session.Close()
+
+	gfs := session.DB("test").GridFS("testfs")
+
+	f, err := gfs.Create(fileName)
+	if err != nil {
+		return err
+	}
+
+	_, err = io.Copy(f, file)
+	if err != nil {
+		return err
+	}
+
+	f.SetMeta(meta)
+
+	err = f.Close()
 	if err != nil {
 		return err
 	}

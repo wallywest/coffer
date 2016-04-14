@@ -1,8 +1,10 @@
 package recording
 
 import (
+	"io"
 	"time"
 
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -23,10 +25,6 @@ type Recording struct {
 	Duration    int64         `bson:"duration"`
 }
 
-type RecordingFile struct {
-	*GFSFile
-}
-
 type RecordingRepo interface {
 	//get from mongodb
 	Get(accountId, recordingId string) (*Recording, error)
@@ -39,5 +37,8 @@ type RecordingRepo interface {
 
 //need to think about this
 type AssetRepo interface {
-	GetFile(accountId, recodingId string) (*RecordingFile, error)
+	ListFiles() ([]*GFSFile, error)
+	GetFile(accountId, recodingId string) (*GFSFile, error)
+	OpenById(id bson.ObjectId) (io.ReadSeeker, error)
+	OpenByName(name string) (*mgo.GridFile, error)
 }

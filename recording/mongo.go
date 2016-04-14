@@ -1,7 +1,8 @@
 package recording
 
 import (
-	"gitlab.vailsys.com/jerny/coffer/pkg/mongo"
+	"gitlab.vailsys.com/jerny/coffer/pkg/logger"
+	"gitlab.vailsys.com/jerny/coffer/storage/driver/mongo"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -25,6 +26,7 @@ func (mr *MongoRecordingRepo) Get(accountId, recordingId string) (*Recording, er
 	defer session.Close()
 
 	if err != nil {
+		logger.Logger.Errorf("error fetching mongo session: %s", err)
 		return nil, err
 	}
 
@@ -32,10 +34,12 @@ func (mr *MongoRecordingRepo) Get(accountId, recordingId string) (*Recording, er
 
 	var recording *Recording
 
+	logger.Logger.Debugf("fetching recording: %v accountId: %v", recordingId, accountId)
 	query := bson.M{"accountId": accountId, "recordingId": recordingId}
 	err = collection.Find(query).One(&recording)
 
 	if err != nil {
+		logger.Logger.Errorf("error fetching recording: %s", err)
 		return nil, err
 
 	}
