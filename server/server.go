@@ -12,7 +12,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 
-	"gitlab.vailsys.com/jerny/coffer/cmd/coffer/options"
+	"gitlab.vailsys.com/jerny/coffer/options"
 	"gitlab.vailsys.com/jerny/coffer/pkg/logger"
 	"gitlab.vailsys.com/jerny/coffer/recording"
 )
@@ -139,7 +139,6 @@ func (c *CofferServer) writeError(w http.ResponseWriter, err error) {
 
 func panicHandler() func(http.ResponseWriter, *http.Request, interface{}) {
 	return func(w http.ResponseWriter, r *http.Request, err interface{}) {
-		panic(err)
 		logger.Logger.Error(err)
 	}
 }

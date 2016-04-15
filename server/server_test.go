@@ -1,12 +1,11 @@
 package server_test
 
 import (
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 
-	"gitlab.vailsys.com/jerny/coffer/cmd/coffer/options"
+	"gitlab.vailsys.com/jerny/coffer/options"
 	"gitlab.vailsys.com/jerny/coffer/pkg/logger"
 	"gitlab.vailsys.com/jerny/coffer/recording"
 	"gitlab.vailsys.com/jerny/coffer/server"
@@ -46,13 +45,12 @@ var _ = Describe("Server", func() {
 			res, err := http.DefaultClient.Do(req)
 			Expect(err).ToNot(HaveOccurred())
 			Expect(res.StatusCode).To(Equal(http.StatusOK))
-			fmt.Println(res)
 		})
 
 	})
 	Context("/Accounts/:accountId/Recordings/:recordingId", func() {})
 	Context("/Accounts/:accountId/Recordings/:recordingId/Download", func() {
-		XIt("should return a not found for an invalid resource", func() {
+		It("should return a not found for an invalid resource", func() {
 			opts := options.NewCofferConfig()
 			provider, err := mongo.NewSessionProvider(opts.MongoConfig)
 			Expect(err).ToNot(HaveOccurred())
@@ -65,7 +63,6 @@ var _ = Describe("Server", func() {
 			ts := httptest.NewServer(s.HTTPHandler())
 			defer ts.Close()
 
-			fmt.Println(ts.URL)
 			invalidUrl := ts.URL + "/Accounts/ACa57d943eba574316d2769ae146f8b34e2810f3db/Recordings/RE001/Download"
 
 			req, _ := http.NewRequest("GET", invalidUrl, nil)

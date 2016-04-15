@@ -1,11 +1,16 @@
 package recording
 
 import (
+	"fmt"
 	"io"
 	"time"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+)
+
+var (
+	ErrorNotFound = newError("record not found in repository")
 )
 
 type Recording struct {
@@ -41,4 +46,47 @@ type AssetRepo interface {
 	GetFile(accountId, recodingId string) (*GFSFile, error)
 	OpenById(id bson.ObjectId) (io.ReadSeeker, error)
 	OpenByName(name string) (*mgo.GridFile, error)
+}
+
+type Error interface {
+	error
+	Repo() bool
+}
+
+type RepoError struct {
+	error
+}
+
+//func (e RepoError) Error() string {
+//return e.Error()
+//}
+
+func (e RepoError) Repo() bool {
+	return true
+}
+
+func newError(text string) RepoError {
+	return RepoError{fmt.Errorf(text)}
+	//return RepoError{
+	//Type: t,
+	//Desc: desc,
+	//Code: code,
+	//}
+}
+
+func mapError(e error) error {
+	switch e.Error() {
+	case "not found":
+		return ErrorNotFound
+	}
+
+	//if mapped, ok := errorMap[e]; ok {
+	//return mapped
+	//}
+	//return internalError(e)
+	return e
+}
+
+func internalError(internal error) error {
+	return RepoError{fmt.Errorf("server error")}
 }

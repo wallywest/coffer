@@ -27,7 +27,7 @@ func (mr *MongoRecordingRepo) Get(accountId, recordingId string) (*Recording, er
 
 	if err != nil {
 		logger.Logger.Errorf("error fetching mongo session: %s", err)
-		return nil, err
+		return nil, mapError(err)
 	}
 
 	collection := session.DB(mr.DB).C(mr.Collection)
@@ -40,7 +40,7 @@ func (mr *MongoRecordingRepo) Get(accountId, recordingId string) (*Recording, er
 
 	if err != nil {
 		logger.Logger.Errorf("error fetching recording: %s", err)
-		return nil, err
+		return nil, mapError(err)
 
 	}
 
@@ -52,7 +52,7 @@ func (mr *MongoRecordingRepo) List(accountId string) ([]*Recording, string, erro
 	defer session.Close()
 
 	if err != nil {
-		return nil, "", err
+		return nil, "", mapError(err)
 	}
 
 	collection := session.DB(mr.DB).C(mr.Collection)
@@ -63,7 +63,7 @@ func (mr *MongoRecordingRepo) List(accountId string) ([]*Recording, string, erro
 	err = collection.Find(query).All(&recordings)
 
 	if err != nil {
-		return nil, "", err
+		return nil, "", mapError(err)
 
 	}
 

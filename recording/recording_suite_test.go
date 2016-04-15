@@ -1,6 +1,8 @@
 package recording_test
 
 import (
+	"os"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"gitlab.vailsys.com/jerny/coffer/pkg/logger"
@@ -14,8 +16,11 @@ var testSession *mgo.Session
 
 func TestStorage(t *testing.T) {
 	logger.TestLogger()
+	os.Setenv("CHECK_SESSIONS", "0")
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Recording Suite")
+	os.Setenv("CHECK_SESSIONS", "1")
+
 }
 
 var _ = BeforeSuite(func() {

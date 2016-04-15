@@ -5,6 +5,7 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
+	"gitlab.vailsys.com/jerny/coffer/pkg/logger"
 	"gitlab.vailsys.com/jerny/coffer/pkg/testutil"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -15,8 +16,11 @@ import (
 var testSession *mgo.Session
 
 func TestServer(t *testing.T) {
+	logger.TestLogger()
+	os.Setenv("CHECK_SESSIONS", "0")
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Server Suite")
+	os.Setenv("CHECK_SESSIONS", "1")
 }
 
 var _ = BeforeSuite(func() {

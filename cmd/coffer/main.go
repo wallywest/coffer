@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"time"
 
-	"gitlab.vailsys.com/jerny/coffer/cmd/coffer/options"
+	"gitlab.vailsys.com/jerny/coffer/options"
 	"gitlab.vailsys.com/jerny/coffer/pkg/logger"
 	"gitlab.vailsys.com/jerny/coffer/recording"
 	"gitlab.vailsys.com/jerny/coffer/server"

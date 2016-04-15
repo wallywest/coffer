@@ -1,5 +1,10 @@
 current_dir := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-REPO_PATH := gitlab.vailsys.com/jerny/coffer
+REPO_PATH=${BUILD_PATH}/${PACKAGE_NAME}
+BUILD_PATH=${REPO_PATH}/cmd/coffer
+REPO_PATH = gitlab.vailsys.com/jerny/
+PACKAGE_NAME = coffer
+GOPACKAGES?=${BUILD_PATH}/${PACKAGE_NAME}/...
+GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")
 VERSION=$(shell cat $(current_dir)/version/VERSION)
 REV := $(shell git rev-parse --short HEAD 2> /dev/null  || echo 'unknown')
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2> /dev/null  || echo 'unknown')
@@ -10,29 +15,28 @@ BUILDFLAGS := -ldflags \
 			   -X $(REPO_PATH)/version.Branch=$(BRANCH)\
 			   -X $(REPO_PATH)/version.BuildDate=$(BUILD_DATE)"
 
-BUILD_PATH := gitlab.vailsys.com/jerny/coffer/cmd/coffer
-DOCKER_IP := 192.168.99.100
-EXPLORATORY_SERVER := spv07vcs16.vail
-
 setup:
 	@go get -u "github.com/tools/godep"
 	@go get -u "github.com/golang/lint/golint"
 
+list:
+	@echo $(GOFILES_NOVENDOR)
+
 lint:
 	@echo "==== go lint ==="
-	@golint ./...
+	@golint $(GOFILES_NOVENDOR)
 
 vet:
 	@echo "=== go vet ==="
-	@go vet ./...
+	@go vet $(GOFILES_NOVENDOR)
 
 fmt:
 	@echo "=== go fmt ==="
-	@go fmt ./...
+	@gofmt -l -w ${GOFILES_NOVENDOR}
 
 test: fmt
 	@echo "=== go test ==="
-	@godep go test ./... -cover
+	@godep go test $(GOFILES_NOVENDOR) -cover -short
 
 update-deps:
 	@echo "=== godep update ==="

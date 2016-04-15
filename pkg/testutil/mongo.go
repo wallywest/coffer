@@ -81,6 +81,7 @@ func SeedWithFile(filePath string) (uint64, error) {
 		return 0, err
 	}
 
+	//session leak
 	numDocs, err := mimport.ImportDocuments()
 
 	if err != nil {

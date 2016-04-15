@@ -23,7 +23,7 @@ var _ = Describe("Testutil", func() {
 			session := testutil.MongoSession()
 			defer session.Close()
 
-			//remove this hard coding for collection/db
+			////remove this hard coding for collection/db
 			q := session.DB("test").C("recordings").Find(nil)
 			total, err := q.Count()
 			Expect(err).ToNot(HaveOccurred())
