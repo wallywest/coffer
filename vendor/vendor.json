@@ -4,435 +4,490 @@
 	"package": [
 		{
 			"checksumSHA1": "QCAKzv0affIi7mlcGqPR8S3w6s0=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/Sirupsen/logrus",
 			"path": "github.com/Sirupsen/logrus",
 			"revision": "219c8cb75c258c552e999735be6df753ffc7afdc",
 			"revisionTime": "2016-02-24T21:10:30Z"
 		},
 		{
 			"checksumSHA1": "gNO0JNpLzYOdInGeq7HqMZUzx9M=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/armon/go-radix",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/armon/go-radix",
 			"path": "github.com/armon/go-radix",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "uB9mw9vMHYJlJlmTBstl4Pi8ZwU=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/cenkalti/backoff",
 			"path": "github.com/cenkalti/backoff",
 			"revision": "32cd0c5b3aef12c76ed64aaf678f6c79736be7dc",
 			"revisionTime": "2015-08-27T12:34:15Z"
 		},
 		{
 			"checksumSHA1": "VvxEC6RQAmgr0qzpc66V+0jY6fA=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/codegangsta/cli",
 			"path": "github.com/codegangsta/cli",
 			"revision": "942282e931e8286aa802a30b01fa7e16befb50f3",
 			"revisionTime": "2015-05-10T18:43:26Z"
 		},
 		{
 			"checksumSHA1": "dnj6px0tS6k2tKIqK4wCW+4bXjk=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/codegangsta/negroni",
 			"path": "github.com/codegangsta/negroni",
 			"revision": "c7477ad8e330bef55bf1ebe300cf8aa67c492d1b",
 			"revisionTime": "2015-03-19T17:13:04Z"
 		},
 		{
 			"checksumSHA1": "ca+JzPmEMSEYCFG+KO/2MYB3SMI=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/gin-gonic/gin",
 			"path": "github.com/gin-gonic/gin",
 			"revision": "44306107958b4622ca57f5184e323c50d9259df3",
 			"revisionTime": "2015-05-31T20:48:38Z"
 		},
 		{
 			"checksumSHA1": "M8Z61f8GZs6CO23wP+ekRgZEo+w=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/gin-gonic/gin/binding",
 			"path": "github.com/gin-gonic/gin/binding",
 			"revision": "44306107958b4622ca57f5184e323c50d9259df3",
 			"revisionTime": "2015-05-31T20:48:38Z"
 		},
 		{
 			"checksumSHA1": "DNnSINu5WDqTcjzJ9OIqzmaeSk8=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/gin-gonic/gin/render",
 			"path": "github.com/gin-gonic/gin/render",
 			"revision": "44306107958b4622ca57f5184e323c50d9259df3",
 			"revisionTime": "2015-05-31T20:48:38Z"
 		},
 		{
 			"checksumSHA1": "GbZYd2vz6+a+rGAruzScYpGpAcM=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/consul/acl",
 			"path": "github.com/hashicorp/consul/acl",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "rix4F+CSyo3wrlhURNU8sTxYjzg=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/consul/api",
 			"path": "github.com/hashicorp/consul/api",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "prV5blSmUXMsD/H1wYd41k6FdRM=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/consul/consul/structs",
 			"path": "github.com/hashicorp/consul/consul/structs",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "KTYm5rxFWdV4jVdPgIMWfryR/yQ=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/consul/testutil",
 			"path": "github.com/hashicorp/consul/testutil",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "fSe5y1UgTDeYlnFfUcDA1zzcw+U=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/go-cleanhttp",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/go-cleanhttp",
 			"path": "github.com/hashicorp/go-cleanhttp",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "TNlVzNR1OaajcNi3CbQ3bGbaLGU=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/go-msgpack/codec",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/go-msgpack/codec",
 			"path": "github.com/hashicorp/go-msgpack/codec",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "oFY4tYXyOXni1lSquyacMaqCQLA=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/golang-lru",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/golang-lru",
 			"path": "github.com/hashicorp/golang-lru",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "2nOpYjx8Sn57bqlZq17yM4YJuM4=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/golang-lru/simplelru",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/golang-lru/simplelru",
 			"path": "github.com/hashicorp/golang-lru/simplelru",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "RqlXnqTJnV68iQmiDMaOMhtj7VY=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl",
 			"path": "github.com/hashicorp/hcl",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "WP5ODRo9+USuAsKYPu5RW3q8Epg=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl/hcl/ast",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl/hcl/ast",
 			"path": "github.com/hashicorp/hcl/hcl/ast",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "Bp6ftbfyrMdHvLlzcNsLQH+Xqw4=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl/hcl/parser",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl/hcl/parser",
 			"path": "github.com/hashicorp/hcl/hcl/parser",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "AwXW3BDC53INB5cY2CLmtIFfOPw=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl/hcl/scanner",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl/hcl/scanner",
 			"path": "github.com/hashicorp/hcl/hcl/scanner",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "wh2mSXMC88JiAy8FIrTtL7OmY7Q=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl/hcl/strconv",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl/hcl/strconv",
 			"path": "github.com/hashicorp/hcl/hcl/strconv",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "mCxZsnCaqyKhAC5iulJQpt8LIqA=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl/hcl/token",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl/hcl/token",
 			"path": "github.com/hashicorp/hcl/hcl/token",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "uEaK2zagnGctsUmjWt8ZYmK1Yvs=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl/json/parser",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl/json/parser",
 			"path": "github.com/hashicorp/hcl/json/parser",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "S1e0F9ZKSnqgOLfjDTYazRL28tA=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl/json/scanner",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl/json/scanner",
 			"path": "github.com/hashicorp/hcl/json/scanner",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "fNlXQCQEnb+B3k5UDL/r15xtSJY=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/hcl/json/token",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/hcl/json/token",
 			"path": "github.com/hashicorp/hcl/json/token",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "oO8c5+ZEFssewIqvHJkGEXHV+i0=",
-			"origin": "github.com/hashicorp/consul/vendor/github.com/hashicorp/serf/coordinate",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/hashicorp/serf/coordinate",
 			"path": "github.com/hashicorp/serf/coordinate",
 			"revision": "6bc6ce671e20e605e1c92a29d07553627cc325a9",
 			"revisionTime": "2016-04-15T17:14:41Z"
 		},
 		{
 			"checksumSHA1": "mZK+4q1Xr8z0AwkCAgO+7Rb8xk8=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/julienschmidt/httprouter",
 			"path": "github.com/julienschmidt/httprouter",
 			"revision": "77366a47451a56bb3ba682481eed85b64fea14e8",
 			"revisionTime": "2016-02-19T15:40:26Z"
 		},
 		{
 			"checksumSHA1": "X19idKrk8NjgHkozoOmw045khX0=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/manucorporat/sse",
 			"path": "github.com/manucorporat/sse",
 			"revision": "404710eaa45fcb6ac1731ce1808110e18594c3c4",
 			"revisionTime": "2015-05-30T09:23:56Z"
 		},
 		{
 			"checksumSHA1": "BVAuucCGrJLqxJDq/z+WjdVBkSo=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/mattn/go-colorable",
 			"path": "github.com/mattn/go-colorable",
 			"revision": "d67e0b7d1797975196499f79bcc322c08b9f218b",
 			"revisionTime": "2015-03-27T01:04:15Z"
 		},
 		{
 			"checksumSHA1": "NkbetqlpWBi3gP08JDneC+axTKw=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/mattn/go-isatty",
 			"path": "github.com/mattn/go-isatty",
 			"revision": "56b76bdf51f7708750eac80fa38b952bb9f32639",
 			"revisionTime": "2015-12-11T00:06:21Z"
 		},
 		{
 			"checksumSHA1": "ygcfvmZEYdRM0DOhvZR+C/CBymg=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/nats-io/nuid",
 			"path": "github.com/nats-io/nuid",
 			"revision": "a5152d67cf63cbfb5d992a395458722a45194715",
 			"revisionTime": "2016-04-02T14:54:09Z"
 		},
 		{
 			"checksumSHA1": "UwhLtKi/lHjArxgsqRe6iqSEu3I=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo",
 			"path": "github.com/onsi/ginkgo",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "7OUAFeF56qb/mkxYQKPeZi6G2rQ=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/config",
 			"path": "github.com/onsi/ginkgo/config",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "T1cZh3UWr4Hnx6fQYp+7KDNvxG4=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/codelocation",
 			"path": "github.com/onsi/ginkgo/internal/codelocation",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "qvz6/+otRkWa1OHaPMKap9D5Ge4=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/containernode",
 			"path": "github.com/onsi/ginkgo/internal/containernode",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "882oWW4FC4Nrd8mrMptsDJSTDds=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/failer",
 			"path": "github.com/onsi/ginkgo/internal/failer",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "x2XsPsAvu0o9GFkGNDex2yMUkxs=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/leafnodes",
 			"path": "github.com/onsi/ginkgo/internal/leafnodes",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "YYYKM1ETStuYBX9jBNV+t9gku/I=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/remote",
 			"path": "github.com/onsi/ginkgo/internal/remote",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "eB1d2Ucr6kf6RtNhnPAk1I+z/jU=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/spec",
 			"path": "github.com/onsi/ginkgo/internal/spec",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "4bevAplfVxvxbgQOLIc2elkiREo=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/specrunner",
 			"path": "github.com/onsi/ginkgo/internal/specrunner",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "yoBD2mP9+iS0TmESeR6U3mtD3X0=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/suite",
 			"path": "github.com/onsi/ginkgo/internal/suite",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "6sOxGhw1brknfjJd9h7MhpnxHMY=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/testingtproxy",
 			"path": "github.com/onsi/ginkgo/internal/testingtproxy",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "dpgqwFYT7NWSOG0Ah+r6kgMhrBg=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/internal/writer",
 			"path": "github.com/onsi/ginkgo/internal/writer",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "Ns/YVVNxy4JTzrzjxToWV10lwWc=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/reporters",
 			"path": "github.com/onsi/ginkgo/reporters",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "w5w5vYFE+kazTCON6pbEGDhsx7U=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/reporters/stenographer",
 			"path": "github.com/onsi/ginkgo/reporters/stenographer",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "FGWjq6+D/zfVdOx13U3Bn/I25v0=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/ginkgo/types",
 			"path": "github.com/onsi/ginkgo/types",
 			"revision": "ac3d45ddd7ef5c4d7fc4d037b615a81f4d67981e",
 			"revisionTime": "2016-02-19T02:10:59Z"
 		},
 		{
 			"checksumSHA1": "/QFgFqeVgkss6cC4dkQidbvOwOk=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega",
 			"path": "github.com/onsi/gomega",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "VrTakWOJeOH8XD3UXGlv46brx10=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/format",
 			"path": "github.com/onsi/gomega/format",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "H4RBR9kcEWh2lECAzBaOTSvgUuA=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/internal/assertion",
 			"path": "github.com/onsi/gomega/internal/assertion",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "N7HhJzMN+STfzI315keM9SxFQAE=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/internal/asyncassertion",
 			"path": "github.com/onsi/gomega/internal/asyncassertion",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "EsgeBqN2S5wj8aWvGsS162ZK7xI=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/internal/oraclematcher",
 			"path": "github.com/onsi/gomega/internal/oraclematcher",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "G+KJsEQohAtPAHEbhHxRN0pffcA=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/internal/testingtsupport",
 			"path": "github.com/onsi/gomega/internal/testingtsupport",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "rTDFgBodkkEMmtaEv2gL/Ee/EPo=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/matchers",
 			"path": "github.com/onsi/gomega/matchers",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "gWJfsDHiZTga1esEChd+MfpftN0=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/matchers/support/goraph/bipartitegraph",
 			"path": "github.com/onsi/gomega/matchers/support/goraph/bipartitegraph",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "zjTC6ady0bJUwzTFAKtv63T7Fmg=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/matchers/support/goraph/edge",
 			"path": "github.com/onsi/gomega/matchers/support/goraph/edge",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "o2+IscLOPKOiovl2g0/igkD1R4Q=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/matchers/support/goraph/node",
 			"path": "github.com/onsi/gomega/matchers/support/goraph/node",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "yEF1BYQPwS3neYFKiqNQReqnadY=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/matchers/support/goraph/util",
 			"path": "github.com/onsi/gomega/matchers/support/goraph/util",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "zEuQ0PUlbqojtNwvu01Mn3DQCJM=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/onsi/gomega/types",
 			"path": "github.com/onsi/gomega/types",
 			"revision": "7ce781ea776b2fd506491011353bded2e40c8467",
 			"revisionTime": "2016-03-05T21:39:52Z"
 		},
 		{
 			"checksumSHA1": "MrBzoMkuXdrGKo09/ka+JCC2Mlk=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/github.com/spf13/pflag",
 			"path": "github.com/spf13/pflag",
 			"revision": "7f60f83a2c81bc3c3c0d5297f61ddfa68da9d3b7",
 			"revisionTime": "2015-10-24T10:54:09Z"
 		},
 		{
 			"checksumSHA1": "hKZGpbFuCrkE4s1vxubKK1aFlfI=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/golang.org/x/net/context",
 			"path": "golang.org/x/net/context",
 			"revision": "a8c61998a557a37435f719980da368469c10bfed",
 			"revisionTime": "2015-04-27T18:23:53Z"
 		},
 		{
 			"checksumSHA1": "7WASrg0PEueWDDRHkFhEEN6Qrms=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/golang.org/x/net/netutil",
 			"path": "golang.org/x/net/netutil",
 			"revision": "a8c61998a557a37435f719980da368469c10bfed",
 			"revisionTime": "2015-04-27T18:23:53Z"
 		},
 		{
 			"checksumSHA1": "85cxg2Rd2bSb8OLyjHqCSu2xbVY=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/golang.org/x/sys/unix",
 			"path": "golang.org/x/sys/unix",
 			"revision": "7a56174f0086b32866ebd746a794417edbc678a1",
 			"revisionTime": "2016-03-02T19:58:15Z"
 		},
 		{
 			"checksumSHA1": "oJTYCraH5lKmJpjno8AVNfRtzCM=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/gopkg.in/bluesuncorp/validator.v5",
 			"path": "gopkg.in/bluesuncorp/validator.v5",
 			"revision": "1d61bf31487322f9bffa4d9f1eda4a53175b58dd",
 			"revisionTime": "2015-05-31T01:06:15Z"
 		},
 		{
 			"checksumSHA1": "bDSCvmvwCYcN5mPjePIzpPyqGYM=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/gopkg.in/mgo.v2",
 			"path": "gopkg.in/mgo.v2",
 			"revision": "b6e2fa371e64216a45e61072a96d4e3859f169da",
 			"revisionTime": "2016-02-23T13:38:14Z"
 		},
 		{
 			"checksumSHA1": "zTjQOFGy4XTv4L33Kd2FhrV+mbM=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/gopkg.in/mgo.v2/bson",
 			"path": "gopkg.in/mgo.v2/bson",
 			"revision": "b6e2fa371e64216a45e61072a96d4e3859f169da",
 			"revisionTime": "2016-02-23T13:38:14Z"
 		},
 		{
 			"checksumSHA1": "58HoOoQzqGWh5E+SJfQw7/sPaZs=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/gopkg.in/mgo.v2/dbtest",
 			"path": "gopkg.in/mgo.v2/dbtest",
 			"revision": "b6e2fa371e64216a45e61072a96d4e3859f169da",
 			"revisionTime": "2016-02-23T13:38:14Z"
 		},
 		{
 			"checksumSHA1": "CkCDTsyN2Lbj1cL8+oaYKoPpI9w=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/gopkg.in/mgo.v2/internal/sasl",
 			"path": "gopkg.in/mgo.v2/internal/sasl",
 			"revision": "b6e2fa371e64216a45e61072a96d4e3859f169da",
 			"revisionTime": "2016-02-23T13:38:14Z"
 		},
 		{
 			"checksumSHA1": "+1WDRPaOphSCmRMxVPIPBV4aubc=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/gopkg.in/mgo.v2/internal/scram",
 			"path": "gopkg.in/mgo.v2/internal/scram",
 			"revision": "b6e2fa371e64216a45e61072a96d4e3859f169da",
 			"revisionTime": "2016-02-23T13:38:14Z"
 		},
 		{
 			"checksumSHA1": "WiyCOMvfzRdymImAJ3ME6aoYUdM=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/gopkg.in/tomb.v2",
 			"path": "gopkg.in/tomb.v2",
 			"revision": "14b3d72120e8d10ea6e6b7f87f7175734b1faab8",
 			"revisionTime": "2014-06-26T14:46:23Z"
 		},
 		{
 			"checksumSHA1": "rX53OwxaVijTeT5wXXNlzlOjv2c=",
+			"origin": "gitlab.vailsys.com/jerny/coffer/vendor/gopkg.in/tylerb/graceful.v1",
 			"path": "gopkg.in/tylerb/graceful.v1",
 			"revision": "9a3d4236b03bb5d26f7951134d248f9d5510d599",
 			"revisionTime": "2016-03-20T21:35:05Z"

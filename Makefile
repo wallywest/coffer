@@ -13,15 +13,22 @@ BUILDFLAGS := -ldflags \
 			   -X $(REPO_PATH)/version.Branch=$(BRANCH)\
 			   -X $(REPO_PATH)/version.BuildDate=$(BUILD_DATE)"
 
+tools:
+	@go get github.com/onsi/ginkgo/ginkgo
+	@go get github.com/onsi/gomega 
+	@go get -u github.com/kardianos/govendor
+
+test:
+	@ginkgo -r 
+
+test-ci:
+	@ginkgo -r -noColor -succinct
+
 update-deps:
-	@echo "=== godep update ==="
-	@godep save ./...
+	@echo "=== govendor update ==="
+	@govendor update +vendor
 
-install: test	
-	@echo "=== go install ==="
-	@godep go install $(BUILDFLAGS) $(BUILD_PATH)
-
-build: 
+build:
 	@echo "=== go build ==="
 	@mkdir -p bin/
 	@govendor build -o bin/coffer $(BUILDFLAGS) $(BUILD_PATH)
