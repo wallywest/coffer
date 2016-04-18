@@ -1,6 +1,10 @@
 package server
 
-import "net/http"
+import (
+	"net/http"
+
+	"gitlab.vailsys.com/jerny/coffer/internal/recording"
+)
 
 const (
 	serverError         = "server_error"
@@ -23,9 +27,19 @@ func newAPIError(typ, desc string) *apiError {
 
 func writeAPIError(w http.ResponseWriter, code int, err error) {
 	apierr, ok := err.(*apiError)
-	if !ok {
-		apierr = newAPIError(serverError, "")
+	if ok {
+		writeResponseWithBody(w, code, apierr)
+		return
 	}
+
+	repError, ok := err.(recording.RepoError)
+	if ok {
+		apierr := newAPIError(repError.Error(), "")
+		writeResponseWithBody(w, code, apierr)
+		return
+	}
+
+	apierr = newAPIError(serverError, "")
 	if apierr.Type == "" {
 		apierr.Type = serverError
 	}
