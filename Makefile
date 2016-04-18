@@ -24,6 +24,6 @@ install: test
 build: 
 	@echo "=== go build ==="
 	@mkdir -p bin/
-	@godep go build -o bin/coffer $(BUILDFLAGS) $(BUILD_PATH)
+	@govendor build -o bin/coffer $(BUILDFLAGS) $(BUILD_PATH)
 
 .PHONY: setup lint vet install test build update-deps
