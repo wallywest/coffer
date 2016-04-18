@@ -7,11 +7,11 @@ Service responsible for asset/recording management via the Pulse API
 
 ### External dependencies
 
-- Go 1.5 or greater should be installed in your $PATH
+- Go 1.6 or greater should be installed in your $PATH
 - GOPATH should be set as described in http://golang.org/doc/code.html
 - MongoDB GridFS.  Assets are primarily stored in GridFS
-- Glide
-
+- Govendor
+- Ginkgo for testing
 
 ### Development Setup
 
@@ -24,8 +24,7 @@ cd $GOPATH/src/gitlab.vailsys.com/jerny/coffer
 to install vendored dependencies run
 
 ```bash
-make setup
-make install
+make tools 
 ```
 
 
@@ -35,6 +34,13 @@ We are using [Ginkgo](https://github.com/onsi/ginkgo), for our test framework.
 
 ```bash
 make test
+```
+
+
+### Building
+
+```bash
+make build
 ```
 
 ## Next Steps

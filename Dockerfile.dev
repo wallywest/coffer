@@ -1,0 +1,23 @@
+FROM golang:1.6.1-alpine
+
+COPY . /go/src/gitlab.vailsys.com/jerny/coffer
+
+
+RUN set -x \
+  && apk add --no-cache --virtual .build-deps \
+    gcc \
+    make \
+    musl-dev \
+    git \
+  && apk add --no-cache --update bash \
+  && cd /go/src/gitlab.vailsys.com/jerny/coffer \
+  && export GOPATH=/go \
+  && export PATH=$PATH:/go/bin \
+  && go env \
+  && make tools \
+  && make build \
+  && make build && mv bin/coffer /bin/coffer \
+  && apk del .build-deps
+
+
+EXPOSE 6000

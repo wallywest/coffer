@@ -33,4 +33,16 @@ build:
 	@mkdir -p bin/
 	@govendor build -o bin/coffer $(BUILDFLAGS) $(BUILD_PATH)
 
-.PHONY: setup lint vet install test build update-deps
+docker-dev:
+	@docker build -t coffer:dev -f Dockerfile.dev .
+
+run-dev:
+	@docker run --rm -it -p 6000:6000 coffer:dev \
+		/bin/coffer --log-level DEBUG \
+		--mongo-db vcsdb \
+		--mongo-servers spv07vcs13.vail:27017 \
+		--mongo-prefix vcsfs \
+		--port 6000 \
+		--skip-registration true
+
+.PHONY: setup lint vet install test build update-deps docker-dev
