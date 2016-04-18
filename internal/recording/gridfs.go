@@ -44,7 +44,7 @@ func NewGridFSRepo(opts mongo.MongoConfig, provider *mongo.SessionProvider) *Gri
 func (repo *GridFSRepo) ListFiles() ([]*GFSFile, error) {
 	sess, err := repo.SessionProvider.GetSession()
 	if err != nil {
-		return nil, err
+		return nil, mapError(err)
 	}
 
 	defer sess.Close()
@@ -53,7 +53,10 @@ func (repo *GridFSRepo) ListFiles() ([]*GFSFile, error) {
 
 	var files []*GFSFile
 	cursor := gfs.Find(nil).Batch(DEFAULT_BATCH).Iter()
-	cursor.All(&files)
+	err = cursor.All(&files)
+	if err != nil {
+		return nil, mapError(err)
+	}
 
 	return files, nil
 }
@@ -61,41 +64,41 @@ func (repo *GridFSRepo) ListFiles() ([]*GFSFile, error) {
 func (repo *GridFSRepo) GetFile(accountId, recordingId string) (*GFSFile, error) {
 	sess, err := repo.SessionProvider.GetSession()
 	if err != nil {
-		return nil, err
+		return nil, mapError(err)
 	}
 
 	defer sess.Close()
 
 	gfs := sess.DB(repo.DB).GridFS(repo.GFSPrefix)
 
-	var file GFSFile
+	var fileMeta GFSFile
 
-	err = gfs.Find(bson.M{"metadata.accountId": accountId, "metadata.fileId": recordingId}).One(&file)
+	err = gfs.Find(bson.M{"metadata.accountId": accountId, "metadata.fileId": recordingId}).One(&fileMeta)
 	if err != nil {
-		return nil, err
+		return nil, mapError(err)
 	}
 
-	return &file, nil
+	return &fileMeta, nil
 }
 
 func (repo *GridFSRepo) GetFileByName(name string) (*GFSFile, error) {
 	sess, err := repo.SessionProvider.GetSession()
 	if err != nil {
-		return nil, err
+		return nil, mapError(err)
 	}
 
 	defer sess.Close()
 
 	gfs := sess.DB(repo.DB).GridFS(repo.GFSPrefix)
 
-	var file GFSFile
+	var fileMeta GFSFile
 
-	err = gfs.Find(bson.M{"filename": name}).One(&file)
+	err = gfs.Find(bson.M{"filename": name}).One(&fileMeta)
 	if err != nil {
-		return nil, err
+		return nil, mapError(err)
 	}
 
-	return &file, nil
+	return &fileMeta, nil
 
 }
 
@@ -119,6 +122,7 @@ func (repo *GridFSRepo) GetFileById(objectId bson.ObjectId) (*GFSFile, error) {
 	return &file, nil
 }
 
+//don't use
 func (repo *GridFSRepo) OpenByName(name string) (*mgo.GridFile, error) {
 	sess, err := repo.SessionProvider.GetSession()
 	if err != nil {
@@ -133,6 +137,7 @@ func (repo *GridFSRepo) OpenByName(name string) (*mgo.GridFile, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return file, nil
 }
 
@@ -140,7 +145,7 @@ func (repo *GridFSRepo) OpenById(id bson.ObjectId) (io.ReadSeeker, error) {
 	sess, err := repo.SessionProvider.GetSession()
 	if err != nil {
 		logger.Logger.Debugf("error retrieving session: %v", err)
-		return nil, err
+		return nil, mapError(err)
 	}
 
 	defer sess.Close()
@@ -148,18 +153,19 @@ func (repo *GridFSRepo) OpenById(id bson.ObjectId) (io.ReadSeeker, error) {
 	gfs := sess.DB(repo.DB).GridFS(repo.GFSPrefix)
 
 	file, err := gfs.OpenId(id)
-	defer file.Close()
 
 	if err != nil {
 		logger.Logger.Debugf("error fetching file: %v", err)
-		return nil, err
+		return nil, mapError(err)
 	}
+
+	defer file.Close()
 
 	b := make([]byte, file.Size())
 	n, err := file.Read(b)
 	if err != nil {
 		logger.Logger.Debugf("error writing mgo file to buffer: %v", err)
-		return nil, err
+		return nil, mapError(err)
 	}
 	logger.Logger.Debugf("wrote %v bytes", n)
 

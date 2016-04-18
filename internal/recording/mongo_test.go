@@ -100,12 +100,12 @@ var _ = Describe("MongoRecordingRepo interface", func() {
 
 		_, err = repo.Get("AC56445f9d0b977d270d02b7026719484c2b6bf369", "RE5")
 		Expect(err).To(HaveOccurred())
-		_, ok := err.(recording.Error)
+		_, ok := err.(recording.RepoError)
 		Expect(ok).To(BeTrue())
 
 		_, err = repo.Get("AC4", "RE3a01435a34c2f288d2804d14f48e2731fbfb72bf")
 		Expect(err).To(HaveOccurred())
-		_, ok = err.(recording.Error)
+		_, ok = err.(recording.RepoError)
 		Expect(ok).To(BeTrue())
 	})
 

@@ -3,6 +3,8 @@ package recording
 import (
 	"fmt"
 	"io"
+	"net/http"
+	"regexp"
 	"time"
 
 	"gopkg.in/mgo.v2"
@@ -10,7 +12,8 @@ import (
 )
 
 var (
-	ErrorNotFound = newError("record not found in repository")
+	ErrorNotFound = newError("record not found in repository", http.StatusNotFound)
+	ErrorObjectID = newError("invalid objectId", http.StatusNotFound)
 )
 
 type Recording struct {
@@ -48,45 +51,39 @@ type AssetRepo interface {
 	OpenByName(name string) (*mgo.GridFile, error)
 }
 
-type Error interface {
-	error
-	Repo() bool
-}
+//type Error interface {
+//error
+//Repo() bool
+//}
 
 type RepoError struct {
 	error
+	Status int
 }
-
-//func (e RepoError) Error() string {
-//return e.Error()
-//}
 
 func (e RepoError) Repo() bool {
 	return true
 }
 
-func newError(text string) RepoError {
-	return RepoError{fmt.Errorf(text)}
-	//return RepoError{
-	//Type: t,
-	//Desc: desc,
-	//Code: code,
-	//}
+func newError(text string, status int) RepoError {
+	return RepoError{error: fmt.Errorf(text), Status: status}
 }
 
-func mapError(e error) error {
-	switch e.Error() {
-	case "not found":
-		return ErrorNotFound
-	}
+var objectIdErrorRegex = regexp.MustCompile(`ObjectIDs must be exactly 12 bytes long`)
+var notFound = "not found"
 
-	//if mapped, ok := errorMap[e]; ok {
-	//return mapped
-	//}
-	//return internalError(e)
-	return e
+func mapError(e error) error {
+	s := e.Error()
+	switch {
+	case s == notFound:
+		return ErrorNotFound
+	case objectIdErrorRegex.MatchString(s):
+		return ErrorObjectID
+	default:
+		return e
+	}
 }
 
 func internalError(internal error) error {
-	return RepoError{fmt.Errorf("server error")}
+	return RepoError{error: fmt.Errorf("server error"), Status: http.StatusInternalServerError}
 }

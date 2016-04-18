@@ -106,4 +106,32 @@ var _ = Describe("AssetRepo interface", func() {
 		Expect(err).ToNot(HaveOccurred())
 	})
 
+	It("should return an error when OPENING a recordign asset from GridFS by id", func() {
+		servers := testSession.LiveServers()
+
+		opts := mongo.MongoConfig{
+			DB:           "test",
+			GridFSPrefix: "testfs",
+			ServerList:   servers,
+		}
+
+		provider, err := mongo.NewSessionProvider(opts)
+		defer provider.Close()
+
+		Expect(err).ToNot(HaveOccurred())
+
+		repo := recording.NewGridFSRepo(opts, provider)
+		_, err = repo.OpenById("blahblah")
+		Expect(err).To(HaveOccurred())
+
+		_, ok := err.(recording.RepoError)
+		Expect(ok).To(BeTrue())
+
+		_, err = repo.OpenById("blahblah11")
+		Expect(err).To(HaveOccurred())
+
+		_, err = repo.OpenById("blahblah1111")
+		Expect(err).To(HaveOccurred())
+	})
+
 })

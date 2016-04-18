@@ -115,7 +115,6 @@ func (c *CofferServer) downloadRecording(w http.ResponseWriter, r *http.Request,
 	gfsfile, err := c.assetRepo.GetFile(accountId, recordingId)
 
 	if err != nil {
-		logger.Logger.Debugf("error finding file: %v", err)
 		c.writeError(w, err)
 		return
 	}
@@ -148,10 +147,10 @@ func (c *CofferServer) downloadRecording(w http.ResponseWriter, r *http.Request,
 func (c *CofferServer) writeError(w http.ResponseWriter, err error) {
 	logger.Logger.Errorf("error calling coffer api: %v", err)
 
-	//if apiErr, ok := err.(api.RecordingError); ok {
-	//writeAPIError(w, apiErr.Code, "")
-	//return
-	//}
+	if rErr, ok := err.(recording.RepoError); ok {
+		writeAPIError(w, rErr.Status, rErr)
+		return
+	}
 
 	writeAPIError(w, http.StatusInternalServerError, fmt.Errorf("change me"))
 }

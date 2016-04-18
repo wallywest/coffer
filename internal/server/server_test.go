@@ -86,6 +86,7 @@ var _ = Describe("Server", func() {
 	Context("/Accounts/:accountId/Recordings/:recordingId", func() {})
 	Context("/Accounts/:accountId/Recordings/:recordingId/Download", func() {
 		It("should return a not found for an invalid resource", func() {
+			logger.SetLogLevel("DEBUG")
 			opts := options.NewCofferConfig()
 			provider, err := mongo.NewSessionProvider(opts.MongoConfig)
 			Expect(err).ToNot(HaveOccurred())
