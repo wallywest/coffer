@@ -16,6 +16,41 @@ import (
 )
 
 var _ = Describe("Server", func() {
+	It("should have a health handler registered", func() {
+		opts := options.NewCofferConfig()
+		opts.MongoConfig.DB = "test"
+		opts.MongoConfig.GridFSPrefix = "testfs"
+		opts.MongoConfig.ServerList = testSession.LiveServers()
+
+		logger.SetLogLevel("DEBUG")
+
+		provider, err := mongo.NewSessionProvider(opts.MongoConfig)
+		Expect(err).ToNot(HaveOccurred())
+		defer provider.Close()
+
+		rrepo := recording.NewMongoRecordingRepo(opts.MongoConfig, provider)
+		arepo := recording.NewGridFSRepo(opts.MongoConfig, provider)
+		s := server.NewCofferServer(opts, rrepo, arepo)
+
+		ts := httptest.NewServer(s.HTTPHandler())
+		defer ts.Close()
+
+		validUrl := ts.URL + "/health"
+
+		req, _ := http.NewRequest("GET", validUrl, nil)
+
+		res, err := http.DefaultClient.Do(req)
+		Expect(err).ToNot(HaveOccurred())
+		Expect(res.StatusCode).To(Equal(200))
+	})
+
+	Context("Service Registration", func() {
+		It("should not try to register when registration disabled", func() {
+		})
+		It("should register with backoff when registration enabled", func() {
+		})
+	})
+
 	Context("/Accounts/:accountId/Recordings", func() {
 		XIt("should be able to list the recording records", func() {
 			accountId := "AC56445f9d0b977d270d02b7026719484c2b6bf369"

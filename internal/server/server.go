@@ -11,26 +11,38 @@ import (
 	"gitlab.vailsys.com/jerny/coffer/internal/logger"
 	"gitlab.vailsys.com/jerny/coffer/internal/options"
 	"gitlab.vailsys.com/jerny/coffer/internal/recording"
+	"gitlab.vailsys.com/jerny/coffer/internal/registry"
 
 	"gopkg.in/tylerb/graceful.v1"
 
+	"github.com/cenkalti/backoff"
 	"github.com/codegangsta/negroni"
 	"github.com/julienschmidt/httprouter"
+	"github.com/nats-io/nuid"
 )
 
+const DEFAULT_MAX_REGISTRATION_TIME = 10 * time.Second
 const assetCacheControlMaxAge = 365 * 24 * time.Hour
 
 type CofferServer struct {
+	Config *options.CofferConfig
+
 	recordingRepo recording.RecordingRepo
 	assetRepo     recording.AssetRepo
-	Config        *options.CofferConfig
+
+	registryDriver   registry.Registry
+	registration     registry.Registration
+	skipRegistration bool
+	shutDownChan     chan bool
 }
 
 func NewCofferServer(opts *options.CofferConfig, recordingRepo recording.RecordingRepo, assetRepo recording.AssetRepo) *CofferServer {
 	return &CofferServer{
-		recordingRepo: recordingRepo,
-		assetRepo:     assetRepo,
-		Config:        opts,
+		recordingRepo:    recordingRepo,
+		assetRepo:        assetRepo,
+		Config:           opts,
+		skipRegistration: opts.RegistryConfig.SkipRegistration,
+		shutDownChan:     make(chan bool),
 	}
 }
 
@@ -39,6 +51,7 @@ func (c *CofferServer) HTTPHandler() http.Handler {
 
 	r.PanicHandler = panicHandler()
 
+	r.GET("/health", healthHandler)
 	r.GET("/Accounts/:accountId/Recordings", c.listRecordings)
 	r.GET("/Accounts/:accountId/Recordings/:recordingId", c.getRecording)
 	r.GET("/Accounts/:accountId/Recordings/:recordingId/Download", c.downloadRecording)
@@ -55,13 +68,17 @@ func (c *CofferServer) Run() error {
 	location := net.JoinHostPort(c.Config.BindAddress.String(), strconv.Itoa(c.Config.Port))
 
 	srv := &graceful.Server{
-		Timeout: 10 * time.Second,
+		Timeout:           10 * time.Second,
+		BeforeShutdown:    c.wtf,
+		ShutdownInitiated: c.shutDown,
 		Server: &http.Server{
 			Addr:           location,
 			Handler:        c.HTTPHandler(),
 			MaxHeaderBytes: 1 << 20,
 		},
 	}
+
+	go c.registerService()
 
 	return srv.ListenAndServe()
 }
@@ -141,10 +158,89 @@ func (c *CofferServer) writeError(w http.ResponseWriter, err error) {
 	writeAPIError(w, http.StatusInternalServerError, fmt.Errorf("change me"))
 }
 
+func (c *CofferServer) registerService() {
+	if c.skipRegistration {
+		return
+	}
+
+	rConfig := c.Config.RegistryConfig
+	conf := map[string]string{
+		"address": rConfig.Nodes[0],
+	}
+
+	driver, err := registry.NewRegistry(rConfig.Type, conf)
+	if err != nil {
+		logger.Logger.Errorf("error configuring registry %s", c.Config.AppName)
+	}
+
+	p := strconv.Itoa(c.Config.Port)
+
+	reg := registry.Registration{
+		Name:    c.Config.AppName,
+		Port:    p,
+		Address: c.Config.AdvertiseAddress.String(),
+		Id:      c.Config.AppName + "-" + nuid.Next(),
+	}
+
+	c.registration = reg
+	c.registryDriver = driver
+
+	var count = 0
+	expBackoff := backoff.NewExponentialBackOff()
+	expBackoff.MaxElapsedTime = DEFAULT_MAX_REGISTRATION_TIME
+
+	operation := func() error {
+		select {
+		case <-c.shutDownChan:
+			return nil
+		default:
+			count = count + 1
+			return driver.Register(reg)
+		}
+	}
+
+	notifier := func(e error, t time.Duration) {
+		logger.Logger.Errorf("error registering service: %s elapsed: %s attempt: %v", e, t, count)
+	}
+
+	err = backoff.RetryNotify(operation, expBackoff, notifier)
+	if err != nil {
+		logger.Logger.Errorf("error registering service: %s err: %s", c.Config.AppName, err)
+	}
+}
+
+func (c *CofferServer) wtf() {
+	logger.Logger.Info("before shutdown")
+}
+
+func (c *CofferServer) shutDown() {
+	fmt.Println(c.registration)
+	fmt.Println(c.skipRegistration)
+
+	c.shutDownChan <- false
+	close(c.shutDownChan)
+
+	fmt.Println(c.skipRegistration)
+
+	if c.skipRegistration {
+		return
+	}
+
+	fmt.Println(c.registration)
+	err := c.registryDriver.DeRegister(c.registration.Id)
+	if err != nil {
+		logger.Logger.Errorf("error deregistering service: %s err: %s", c.Config.AppName, err)
+	}
+}
+
 func panicHandler() func(http.ResponseWriter, *http.Request, interface{}) {
 	return func(w http.ResponseWriter, r *http.Request, err interface{}) {
 		logger.Logger.Error(err)
 	}
+}
+
+func healthHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	writeResponseWithBody(w, http.StatusOK, nil)
 }
 
 func stripRecordingPrefix(recordingId string) string {

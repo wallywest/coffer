@@ -43,5 +43,6 @@ func main() {
 	if err := s.Run(); err != nil {
 		logger.Logger.Fatalf(err.Error())
 	}
+
 	logger.Logger.Info("shutting down")
 }
