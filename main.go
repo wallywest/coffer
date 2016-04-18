@@ -45,4 +45,7 @@ func main() {
 	}
 
 	logger.Logger.Info("shutting down")
+	if err = s.ShutDown(); err != nil {
+		logger.Logger.Error(err)
+	}
 }

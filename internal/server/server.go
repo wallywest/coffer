@@ -12,6 +12,7 @@ import (
 	"gitlab.vailsys.com/jerny/coffer/internal/options"
 	"gitlab.vailsys.com/jerny/coffer/internal/recording"
 	"gitlab.vailsys.com/jerny/coffer/internal/registry"
+	"gitlab.vailsys.com/jerny/coffer/version"
 
 	"gopkg.in/tylerb/graceful.v1"
 
@@ -33,7 +34,6 @@ type CofferServer struct {
 	registryDriver   registry.Registry
 	registration     registry.Registration
 	skipRegistration bool
-	shutDownChan     chan bool
 }
 
 func NewCofferServer(opts *options.CofferConfig, recordingRepo recording.RecordingRepo, assetRepo recording.AssetRepo) *CofferServer {
@@ -42,7 +42,6 @@ func NewCofferServer(opts *options.CofferConfig, recordingRepo recording.Recordi
 		assetRepo:        assetRepo,
 		Config:           opts,
 		skipRegistration: opts.RegistryConfig.SkipRegistration,
-		shutDownChan:     make(chan bool),
 	}
 }
 
@@ -52,6 +51,7 @@ func (c *CofferServer) HTTPHandler() http.Handler {
 	r.PanicHandler = panicHandler()
 
 	r.GET("/health", healthHandler)
+	r.GET("/version", versionHandler)
 	r.GET("/Accounts/:accountId/Recordings", c.listRecordings)
 	r.GET("/Accounts/:accountId/Recordings/:recordingId", c.getRecording)
 	r.GET("/Accounts/:accountId/Recordings/:recordingId/Download", c.downloadRecording)
@@ -68,9 +68,7 @@ func (c *CofferServer) Run() error {
 	location := net.JoinHostPort(c.Config.BindAddress.String(), strconv.Itoa(c.Config.Port))
 
 	srv := &graceful.Server{
-		Timeout:           10 * time.Second,
-		BeforeShutdown:    c.wtf,
-		ShutdownInitiated: c.shutDown,
+		Timeout: 10 * time.Second,
 		Server: &http.Server{
 			Addr:           location,
 			Handler:        c.HTTPHandler(),
@@ -190,13 +188,8 @@ func (c *CofferServer) registerService() {
 	expBackoff.MaxElapsedTime = DEFAULT_MAX_REGISTRATION_TIME
 
 	operation := func() error {
-		select {
-		case <-c.shutDownChan:
-			return nil
-		default:
-			count = count + 1
-			return driver.Register(reg)
-		}
+		count = count + 1
+		return driver.Register(reg)
 	}
 
 	notifier := func(e error, t time.Duration) {
@@ -205,32 +198,22 @@ func (c *CofferServer) registerService() {
 
 	err = backoff.RetryNotify(operation, expBackoff, notifier)
 	if err != nil {
-		logger.Logger.Errorf("error registering service: %s err: %s", c.Config.AppName, err)
+		logger.Logger.Errorf("error registering service: %s elapsed: %s attempt: %v", err, expBackoff.GetElapsedTime(), count)
 	}
 }
 
-func (c *CofferServer) wtf() {
-	logger.Logger.Info("before shutdown")
-}
-
-func (c *CofferServer) shutDown() {
-	fmt.Println(c.registration)
-	fmt.Println(c.skipRegistration)
-
-	c.shutDownChan <- false
-	close(c.shutDownChan)
-
-	fmt.Println(c.skipRegistration)
-
+func (c *CofferServer) ShutDown() error {
 	if c.skipRegistration {
-		return
+		return nil
 	}
 
-	fmt.Println(c.registration)
+	logger.Logger.Infof("deregisering service: %s", c.registration.Id)
 	err := c.registryDriver.DeRegister(c.registration.Id)
 	if err != nil {
 		logger.Logger.Errorf("error deregistering service: %s err: %s", c.Config.AppName, err)
+		return err
 	}
+	return nil
 }
 
 func panicHandler() func(http.ResponseWriter, *http.Request, interface{}) {
@@ -245,4 +228,8 @@ func healthHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params)
 
 func stripRecordingPrefix(recordingId string) string {
 	return strings.TrimPrefix(recordingId, "RE")
+}
+
+func versionHandler(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	writeResponseWithBody(w, http.StatusOK, version.Map)
 }
