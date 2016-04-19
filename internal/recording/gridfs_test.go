@@ -66,27 +66,6 @@ var _ = Describe("AssetRepo interface", func() {
 		Expect(f.Name).To(Equal(name))
 	})
 
-	It("should OPEN a Recording asset from GridFS by name", func() {
-		servers := testSession.LiveServers()
-
-		opts := mongo.MongoConfig{
-			DB:           "test",
-			GridFSPrefix: "testfs",
-			ServerList:   servers,
-		}
-
-		provider, err := mongo.NewSessionProvider(opts)
-		defer provider.Close()
-
-		Expect(err).ToNot(HaveOccurred())
-
-		repo := recording.NewGridFSRepo(opts, provider)
-		file, err := repo.OpenByName(name)
-		Expect(err).ToNot(HaveOccurred())
-		defer file.Close()
-		Expect(file.Name()).To(Equal(name))
-	})
-
 	It("should OPEN a Recording asset from GridFS by id", func() {
 		servers := testSession.LiveServers()
 

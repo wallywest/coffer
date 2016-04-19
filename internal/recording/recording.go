@@ -2,12 +2,10 @@ package recording
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 	"regexp"
 	"time"
 
-	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -45,10 +43,9 @@ type RecordingRepo interface {
 
 //need to think about this
 type AssetRepo interface {
-	ListFiles() ([]*GFSFile, error)
-	GetFile(accountId, recodingId string) (*GFSFile, error)
-	OpenById(id bson.ObjectId) (io.ReadSeeker, error)
-	OpenByName(name string) (*mgo.GridFile, error)
+	ListFiles() ([]*GFSMeta, error)
+	GetFile(accountId, recodingId string) (*GFSMeta, error)
+	OpenById(id bson.ObjectId) (*GFSFile, error)
 }
 
 //type Error interface {

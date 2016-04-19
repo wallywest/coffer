@@ -112,14 +112,14 @@ func (c *CofferServer) downloadRecording(w http.ResponseWriter, r *http.Request,
 
 	logger.Logger.Debugf("fetching recording file: %v", recordingId)
 
-	gfsfile, err := c.assetRepo.GetFile(accountId, recordingId)
+	gfsmeta, err := c.assetRepo.GetFile(accountId, recordingId)
 
 	if err != nil {
 		c.writeError(w, err)
 		return
 	}
 
-	reader, err := c.assetRepo.OpenById(gfsfile.Id)
+	gfsfile, err := c.assetRepo.OpenById(gfsmeta.Id)
 
 	if err != nil {
 		logger.Logger.Debugf("error opening file: %v", err)
@@ -127,7 +127,7 @@ func (c *CofferServer) downloadRecording(w http.ResponseWriter, r *http.Request,
 		return
 	}
 
-	w.Header().Set("ETag", fmt.Sprintf(`"%s"`, gfsfile.Md5)) // If-None-Match handled by ServeContent
+	w.Header().Set("Etag", fmt.Sprintf(`"%s"`, gfsfile.Md5)) // If-None-Match handled by ServeContent
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%.f", assetCacheControlMaxAge.Seconds()))
 
 	if w.Header().Get("Content-Type") == "" {
@@ -137,11 +137,11 @@ func (c *CofferServer) downloadRecording(w http.ResponseWriter, r *http.Request,
 
 	if w.Header().Get("Content-Length") == "" {
 		// Set the content length if not already set.
-		w.Header().Set("Content-Length", fmt.Sprint(gfsfile.Length))
+		w.Header().Set("Content-Length", fmt.Sprint(gfsmeta.Length))
 	}
-	w.Header().Set("Content-Disposition", "attachment; filename="+gfsfile.Name+".wav")
+	w.Header().Set("Content-Disposition", "attachment; filename="+gfsmeta.Name+".wav")
 
-	http.ServeContent(w, r, gfsfile.Name, time.Time{}, reader)
+	http.ServeContent(w, r, gfsmeta.Name, time.Time{}, gfsfile.FileReader)
 }
 
 func (c *CofferServer) writeError(w http.ResponseWriter, err error) {
@@ -202,6 +202,8 @@ func (c *CofferServer) registerService() {
 }
 
 func (c *CofferServer) ShutDown() error {
+	logger.Logger.Debug("shutting down")
+
 	if c.skipRegistration {
 		return nil
 	}
