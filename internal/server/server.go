@@ -176,7 +176,7 @@ func (c *CofferServer) registerService() {
 		Name:    c.Config.AppName,
 		Port:    p,
 		Address: c.Config.AdvertiseAddress.String(),
-		Id:      c.Config.AppName + "-" + nuid.Next(),
+		Id:      c.Config.AppName + ":" + nuid.Next(),
 	}
 
 	c.registration = reg
