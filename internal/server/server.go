@@ -68,10 +68,12 @@ func (c *CofferServer) Run() error {
 	location := net.JoinHostPort(c.Config.BindAddress.String(), strconv.Itoa(c.Config.Port))
 
 	srv := &graceful.Server{
-		Timeout: 10 * time.Second,
+		Timeout: 5 * time.Second,
 		Server: &http.Server{
 			Addr:           location,
 			Handler:        c.HTTPHandler(),
+			ReadTimeout:    10 * time.Second,
+			WriteTimeout:   10 * time.Second,
 			MaxHeaderBytes: 1 << 20,
 		},
 	}
@@ -127,7 +129,7 @@ func (c *CofferServer) downloadRecording(w http.ResponseWriter, r *http.Request,
 		return
 	}
 
-	w.Header().Set("Etag", fmt.Sprintf(`"%s"`, gfsfile.Md5)) // If-None-Match handled by ServeContent
+	w.Header().Set("ETag", fmt.Sprintf(`"%s"`, gfsfile.Md5)) // If-None-Match handled by ServeContent
 	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%.f", assetCacheControlMaxAge.Seconds()))
 
 	if w.Header().Get("Content-Type") == "" {

@@ -2,6 +2,9 @@ package recording
 
 import (
 	"bytes"
+	"crypto/md5"
+	"fmt"
+	"io"
 	"time"
 
 	"gitlab.vailsys.com/jerny/coffer/internal/logger"
@@ -156,9 +159,25 @@ func (repo *GridFSRepo) OpenById(id bson.ObjectId) (*GFSFile, error) {
 
 	fileBytes := bytes.NewReader(b)
 
-	return &GFSFile{
+	f := &GFSFile{
 		Md5:         file.MD5(),
 		FileReader:  fileBytes,
 		ContentType: file.ContentType(),
-	}, nil
+	}
+
+	if f.Md5 == "" {
+		f.Md5 = fileMd5(file)
+	}
+
+	if f.ContentType == "" {
+		f.ContentType = "audio/wav"
+	}
+
+	return f, nil
+}
+
+func fileMd5(file io.Reader) string {
+	h := md5.New()
+	io.Copy(h, file)
+	return fmt.Sprintf("%x", h.Sum(nil))
 }
