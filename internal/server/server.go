@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"gitlab.vailsys.com/jerny/coffer/internal/common"
 	"gitlab.vailsys.com/jerny/coffer/internal/logger"
 	"gitlab.vailsys.com/jerny/coffer/internal/options"
 	"gitlab.vailsys.com/jerny/coffer/internal/recording"
@@ -16,6 +17,7 @@ import (
 
 	"gopkg.in/tylerb/graceful.v1"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/cenkalti/backoff"
 	"github.com/codegangsta/negroni"
 	"github.com/julienschmidt/httprouter"
@@ -63,7 +65,26 @@ func (c *CofferServer) HTTPHandler() http.Handler {
 }
 
 func (c *CofferServer) Run() error {
-	logger.Logger.WithField("service", c.Config.AppName).WithField("port", c.Config.Port).Info("starting")
+
+	if !c.Config.BindAddress.IsLoopback() {
+		c.Config.AdvertiseAddress = c.Config.BindAddress
+	}
+
+	if c.Config.AdvertiseAddress == nil || c.Config.AdvertiseAddress.IsUnspecified() {
+		ip, err := common.GetPrivateIP()
+		if err != nil {
+			return err
+		}
+		c.Config.AdvertiseAddress = ip
+	}
+
+	logger.Logger.WithFields(
+		logrus.Fields{
+			"service":        c.Config.AppName,
+			"port":           c.Config.Port,
+			"bind-addr":      c.Config.BindAddress.String(),
+			"advertise-addr": c.Config.AdvertiseAddress.String(),
+		}).Info("starting")
 
 	location := net.JoinHostPort(c.Config.BindAddress.String(), strconv.Itoa(c.Config.Port))
 

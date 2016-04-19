@@ -24,15 +24,14 @@ type CofferConfig struct {
 
 func NewCofferConfig() *CofferConfig {
 	c := &CofferConfig{
-		AppName:          "coffer",
-		BindAddress:      net.ParseIP("0.0.0.0"),
-		AdvertiseAddress: net.ParseIP("127.0.0.1"),
-		Port:             6000,
-		HeartBeatTTL:     "15s",
-		DiscoveryMode:    "static",
-		DiscoveryTTL:     "15s",
-		LogLevel:         "INFO",
-		EnableProfiling:  false,
+		AppName:         "coffer",
+		Port:            6000,
+		HeartBeatTTL:    "15s",
+		BindAddress:     net.ParseIP("0.0.0.0"),
+		DiscoveryMode:   "static",
+		DiscoveryTTL:    "15s",
+		LogLevel:        "INFO",
+		EnableProfiling: false,
 		MongoConfig: mongostorage.MongoConfig{
 			DB:           "vcsdb",
 			GridFSPrefix: "vcsfs",
