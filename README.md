@@ -43,6 +43,19 @@ make test
 make build
 ```
 
+
+### Command Line Flags
+
+- `--port <port>`: Port from which to serve. Default is `6000`.
+- `--advertise-address <address>`: External address of the server for it to pass to users for various confirmation codes. Default is `127.0.0.1:6000`.
+- `--mongo-servers <sddress>`: Address of MongoDB instance to use.
+- `--mongo-db`: Mongo database.
+- `--mongo-prefix`: Mongo prefix for the GridFS collection.
+- `--log-level`: Log level. Debug logging is off by default.
+- `--skip-registration`: Flag to disable registration of service.
+- `--registry-type`: Registry type for service discovery options are inmem,consul.
+- `--registry-nodes`: Nodes for the registry to connect to *only applicable for consul*.
+
 ## Next Steps
 
 [Reference](docs/reference.md)
