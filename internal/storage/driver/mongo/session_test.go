@@ -3,7 +3,7 @@ package mongo
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"gitlab.vailsys.com/jerny/coffer/internal/testutil"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/testutil"
 )
 
 var _ = Describe("Session", func() {

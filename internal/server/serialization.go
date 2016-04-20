@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/logger"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/logger"
 )
 
 func writeResponseWithBody(w http.ResponseWriter, code int, resp interface{}) {

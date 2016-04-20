@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"testing"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/registry"
-	"gitlab.vailsys.com/jerny/coffer/internal/testutil"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/registry"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/testutil"
 
 	"github.com/nats-io/nuid"
 	. "github.com/onsi/ginkgo"

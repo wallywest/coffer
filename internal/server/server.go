@@ -8,12 +8,12 @@ import (
 	"strings"
 	"time"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/common"
-	"gitlab.vailsys.com/jerny/coffer/internal/logger"
-	"gitlab.vailsys.com/jerny/coffer/internal/options"
-	"gitlab.vailsys.com/jerny/coffer/internal/recording"
-	"gitlab.vailsys.com/jerny/coffer/internal/registry"
-	"gitlab.vailsys.com/jerny/coffer/version"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/common"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/logger"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/options"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/recording"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/registry"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/version"
 
 	"gopkg.in/tylerb/graceful.v1"
 

@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/codegangsta/negroni"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/logger"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/logger"
+	"github.com/codegangsta/negroni"
 )
 
 func loggerMiddleware() negroni.HandlerFunc {
@@ -20,7 +20,6 @@ func loggerMiddleware() negroni.HandlerFunc {
 		start := time.Now()
 
 		next(w, r)
-		//h.ServeHTTP(w, r)
 
 		end := time.Now()
 		latency := end.Sub(start)

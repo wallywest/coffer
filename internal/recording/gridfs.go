@@ -7,8 +7,8 @@ import (
 	"io"
 	"time"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/logger"
-	"gitlab.vailsys.com/jerny/coffer/internal/storage/driver/mongo"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/logger"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/storage/driver/mongo"
 
 	"gopkg.in/mgo.v2/bson"
 )

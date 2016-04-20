@@ -3,8 +3,8 @@ package recording_test
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"gitlab.vailsys.com/jerny/coffer/internal/recording"
-	"gitlab.vailsys.com/jerny/coffer/internal/storage/driver/mongo"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/recording"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/storage/driver/mongo"
 )
 
 var _ = Describe("MongoRecordingRepo interface", func() {

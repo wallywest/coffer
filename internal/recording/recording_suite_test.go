@@ -3,8 +3,8 @@ package recording_test
 import (
 	"os"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/logger"
-	"gitlab.vailsys.com/jerny/coffer/internal/testutil"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/logger"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/testutil"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"

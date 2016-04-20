@@ -1,11 +1,12 @@
 package mongo_test
 
 import (
+	"testing"
+
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/testutil"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"gitlab.vailsys.com/jerny/coffer/internal/testutil"
-
-	"testing"
 )
 
 func TestMongo(t *testing.T) {

@@ -3,7 +3,7 @@ package server
 import (
 	"net/http"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/recording"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/recording"
 )
 
 const (

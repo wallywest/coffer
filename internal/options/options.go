@@ -4,8 +4,8 @@ import (
 	"net"
 
 	"github.com/spf13/pflag"
-	"gitlab.vailsys.com/jerny/coffer/internal/registry"
-	mongostorage "gitlab.vailsys.com/jerny/coffer/internal/storage/driver/mongo"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/registry"
+	mongostorage "gitlab.vailsys.com/vail-cloud-services/coffer/internal/storage/driver/mongo"
 )
 
 type CofferConfig struct {

@@ -1,8 +1,8 @@
 package recording_test
 
 import (
-	"gitlab.vailsys.com/jerny/coffer/internal/recording"
-	"gitlab.vailsys.com/jerny/coffer/internal/storage/driver/mongo"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/recording"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/storage/driver/mongo"
 	"gopkg.in/mgo.v2/bson"
 
 	. "github.com/onsi/ginkgo"

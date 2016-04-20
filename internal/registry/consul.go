@@ -6,10 +6,9 @@ import (
 	"net/url"
 	"strconv"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/logger"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/logger"
 
 	"github.com/hashicorp/consul/api"
-	"github.com/hashicorp/go-cleanhttp"
 )
 
 const (

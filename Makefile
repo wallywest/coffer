@@ -1,5 +1,5 @@
 current_dir := $(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
-BUILD_PATH=gitlab.vailsys.com/jerny/coffer
+BUILD_PATH=gitlab.vailsys.com/vail-cloud-services/coffer
 REPO_PATH=${BUILD_PATH}
 GOPACKAGES?=${BUILD_PATH}/${PACKAGE_NAME}/...
 GOFILES_NOVENDOR = $(shell find . -type f -name '*.go' -not -path "./vendor/*")

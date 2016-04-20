@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"gitlab.vailsys.com/jerny/coffer/internal/logger"
-	"gitlab.vailsys.com/jerny/coffer/internal/options"
-	"gitlab.vailsys.com/jerny/coffer/internal/recording"
-	"gitlab.vailsys.com/jerny/coffer/internal/server"
-	"gitlab.vailsys.com/jerny/coffer/internal/storage/driver/mongo"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/logger"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/options"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/recording"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/server"
+	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/storage/driver/mongo"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
