@@ -9,6 +9,7 @@ import (
 	"gitlab.vailsys.com/vail-cloud-services/coffer/internal/logger"
 
 	"github.com/hashicorp/consul/api"
+	"github.com/hashicorp/go-cleanhttp"
 )
 
 const (

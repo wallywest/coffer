@@ -1,6 +1,6 @@
 FROM golang:1.6.1-alpine
 
-COPY . /go/src/gitlab.vailsys.com/jerny/coffer
+COPY . /go/src/gitlab.vailsys.com/vail-cloud-services/coffer
 
 
 RUN set -x \
@@ -10,7 +10,7 @@ RUN set -x \
     musl-dev \
     git \
   && apk add --no-cache --update bash \
-  && cd /go/src/gitlab.vailsys.com/jerny/coffer \
+  && cd /go/src/gitlab.vailsys.com/vail-cloud-services/coffer \
   && export GOPATH=/go \
   && export PATH=$PATH:/go/bin \
   && go env \
