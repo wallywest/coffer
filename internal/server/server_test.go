@@ -142,5 +142,36 @@ var _ = Describe("Server", func() {
 				Expect(len(out)).To(Equal(int(seed.Size)))
 			}
 		})
+
+		It("should serve up the asset for streaming", func() {
+			opts := options.NewCofferConfig()
+			opts.MongoConfig.DB = "test"
+			opts.MongoConfig.GridFSPrefix = "testfs"
+			opts.MongoConfig.ServerList = testSession.LiveServers()
+
+			provider, err := mongo.NewSessionProvider(opts.MongoConfig)
+			Expect(err).ToNot(HaveOccurred())
+			defer provider.Close()
+
+			rrepo := recording.NewMongoRecordingRepo(opts.MongoConfig, provider)
+			arepo := recording.NewGridFSRepo(opts.MongoConfig, provider)
+			s := server.NewCofferServer(opts, rrepo, arepo)
+
+			ts := httptest.NewServer(s.HTTPHandler())
+			defer ts.Close()
+
+			seed := RecordingSeeds[0]
+			accountId := seed.AccountId
+			recordingId := "RE" + seed.Id
+
+			validUrl := ts.URL + "/Accounts/" + accountId + "/Recordings/" + recordingId + "/Stream"
+
+			req, _ := http.NewRequest("GET", validUrl, nil)
+			res, err := http.DefaultClient.Do(req)
+			Expect(err).ToNot(HaveOccurred())
+			Expect(res.StatusCode).To(Equal(http.StatusOK))
+			Expect(res.ContentLength).To(Equal(int64(18924)))
+			Expect(res.Header.Get("Content-Type")).To(Equal("audio/wav"))
+		})
 	})
 })
