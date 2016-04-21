@@ -57,6 +57,7 @@ func (c *CofferServer) HTTPHandler() http.Handler {
 	r.GET("/Accounts/:accountId/Recordings", c.listRecordings)
 	r.GET("/Accounts/:accountId/Recordings/:recordingId", c.getRecording)
 	r.GET("/Accounts/:accountId/Recordings/:recordingId/Download", c.downloadRecording)
+	r.GET("/Accounts/:accountId/Recordings/:recordingId/Stream", c.streamRecording)
 
 	n := negroni.New(loggerMiddleware())
 	n.UseHandler(r)
@@ -163,6 +164,43 @@ func (c *CofferServer) downloadRecording(w http.ResponseWriter, r *http.Request,
 		w.Header().Set("Content-Length", fmt.Sprint(gfsmeta.Length))
 	}
 	w.Header().Set("Content-Disposition", "attachment; filename="+gfsmeta.Name+".wav")
+
+	http.ServeContent(w, r, gfsmeta.Name, time.Time{}, gfsfile.FileReader)
+}
+
+func (c *CofferServer) streamRecording(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	accountId := ps.ByName("accountId")
+	recordingId := stripRecordingPrefix(ps.ByName("recordingId"))
+
+	logger.Logger.Debugf("fetching recording file: %v", recordingId)
+
+	gfsmeta, err := c.assetRepo.GetFile(accountId, recordingId)
+
+	if err != nil {
+		c.writeError(w, err)
+		return
+	}
+
+	gfsfile, err := c.assetRepo.OpenById(gfsmeta.Id)
+
+	if err != nil {
+		logger.Logger.Debugf("error opening file: %v", err)
+		c.writeError(w, err)
+		return
+	}
+
+	w.Header().Set("ETag", fmt.Sprintf(`"%s"`, gfsfile.Md5)) // If-None-Match handled by ServeContent
+	w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%.f", assetCacheControlMaxAge.Seconds()))
+
+	if w.Header().Get("Content-Type") == "" {
+		// Set the content type if not already set.
+		w.Header().Set("Content-Type", gfsfile.ContentType)
+	}
+
+	if w.Header().Get("Content-Length") == "" {
+		// Set the content length if not already set.
+		w.Header().Set("Content-Length", fmt.Sprint(gfsmeta.Length))
+	}
 
 	http.ServeContent(w, r, gfsmeta.Name, time.Time{}, gfsfile.FileReader)
 }
