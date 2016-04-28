@@ -29,24 +29,7 @@ var _ = BeforeSuite(func() {
 	err := testutil.SeedWithFile("testdata/recordings.json")
 	Expect(err).ToNot(HaveOccurred())
 
-	files := []*FileSeed{
-		{
-			FileName: "a",
-			FilePath: "testdata/a.wav",
-		},
-		{
-			FileName: "b",
-			FilePath: "testdata/b.wav",
-		},
-		{
-			FileName: "c",
-			FilePath: "testdata/c.wav",
-		},
-	}
-	for _, f := range files {
-		err = testutil.SeedAsset(f.FileName, f.FilePath)
-		Expect(err).ToNot(HaveOccurred())
-	}
+	Seed()
 
 	testSession = testutil.MongoSession()
 })
@@ -62,4 +45,28 @@ var _ = AfterSuite(func() {
 type FileSeed struct {
 	FileName string
 	FilePath string
+}
+
+func Seed() {
+	files := []*FileSeed{
+		{
+			FileName: "a",
+			FilePath: "testdata/a.wav",
+		},
+		{
+			FileName: "b",
+			FilePath: "testdata/b.wav",
+		},
+		{
+			FileName: "c",
+			FilePath: "testdata/c.wav",
+		},
+	}
+
+	var err error
+
+	for _, f := range files {
+		err = testutil.SeedAsset(f.FileName, f.FilePath)
+		Expect(err).ToNot(HaveOccurred())
+	}
 }

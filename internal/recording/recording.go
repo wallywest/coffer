@@ -36,8 +36,12 @@ type RecordingRepo interface {
 	Get(accountId, recordingId string) (*Recording, error)
 
 	//add filter, token, max results
-	List(accountId string) ([]*Recording, string, error)
+	//callId and dateCreated parameter filtering
+	List(accountId string) ([]*Recording, *CursorInfo, error)
+	ListByCall(accountId, callId string) ([]*Recording, *CursorInfo, error)
+	ListByCursor(cursorId string) ([]*Recording, *CursorInfo, error)
 
+	//deletes both metadata and asset in gridFS
 	Delete(accountId, recordingId string) error
 }
 
@@ -47,11 +51,6 @@ type AssetRepo interface {
 	GetFile(accountId, recodingId string) (*GFSMeta, error)
 	OpenById(id bson.ObjectId) (*GFSFile, error)
 }
-
-//type Error interface {
-//error
-//Repo() bool
-//}
 
 type RepoError struct {
 	error

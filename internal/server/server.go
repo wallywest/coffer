@@ -58,6 +58,7 @@ func (c *CofferServer) HTTPHandler() http.Handler {
 	r.GET("/Accounts/:accountId/Recordings/:recordingId", c.getRecording)
 	r.GET("/Accounts/:accountId/Recordings/:recordingId/Download", c.downloadRecording)
 	r.GET("/Accounts/:accountId/Recordings/:recordingId/Stream", c.streamRecording)
+	r.GET("/Accounts/:accountId/Calls/:callId/Recordings", c.listCallRecordings)
 
 	n := negroni.New(loggerMiddleware())
 	n.UseHandler(r)
@@ -108,7 +109,30 @@ func (c *CofferServer) Run() error {
 func (c *CofferServer) listRecordings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	accountId := ps.ByName("accountId")
 
-	recordings, _, err := c.recordingRepo.List(accountId)
+	cursor := r.URL.Query().Get("cursor")
+
+	var recordings []*recording.Recording
+	var queryErr error
+
+	if cursor != "" {
+		recordings, _, queryErr = c.recordingRepo.ListByCursor(cursor)
+	} else {
+		recordings, _, queryErr = c.recordingRepo.List(accountId)
+	}
+
+	if queryErr != nil {
+		c.writeError(w, queryErr)
+		return
+	}
+
+	writeResponseWithBody(w, http.StatusOK, recordings)
+}
+
+func (c *CofferServer) listCallRecordings(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	accountId := ps.ByName("accountId")
+	callId := ps.ByName("callId")
+
+	recordings, _, err := c.recordingRepo.ListByCall(accountId, callId)
 	if err != nil {
 		c.writeError(w, err)
 		return

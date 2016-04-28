@@ -45,11 +45,57 @@ var _ = Describe("MongoRecordingRepo interface", func() {
 			list, _, err := repo.List("AC56445f9d0b977d270d02b7026719484c2b6bf369")
 			Expect(err).ToNot(HaveOccurred())
 			Expect(list).ToNot(BeEmpty())
-			Expect(len(list)).To(Equal(65))
-			list2, _, err := repo.List("ACa57d943eba574316d2769ae146f8b34e2810f3db")
+			Expect(len(list)).To(Equal(20))
+			list2, info, err := repo.List("ACa57d943eba574316d2769ae146f8b34e2810f3db")
 			Expect(err).ToNot(HaveOccurred())
 			Expect(list2).ToNot(BeEmpty())
-			Expect(len(list2)).To(Equal(2))
+			Expect(len(list2)).To(Equal(info.End + 1))
+		})
+
+		It("should be able to list by cursorId", func() {
+			servers := testSession.LiveServers()
+
+			opts := mongo.MongoConfig{
+				DB:         "test",
+				ServerList: servers,
+			}
+
+			provider, err := mongo.NewSessionProvider(opts)
+			defer provider.Close()
+
+			Expect(err).ToNot(HaveOccurred())
+
+			repo := recording.NewMongoRecordingRepo(opts, provider)
+			list, info, err := repo.List("AC56445f9d0b977d270d02b7026719484c2b6bf369")
+			Expect(err).ToNot(HaveOccurred())
+			Expect(list).ToNot(BeEmpty())
+			Expect(len(list)).To(Equal(20))
+			Expect(info.CursorId).ToNot(BeNil())
+
+			list, _, err = repo.ListByCursor(info.CursorId)
+			Expect(err).ToNot(HaveOccurred())
+			Expect(list).ToNot(BeEmpty())
+			Expect(len(list)).To(Equal(20))
+		})
+
+		It("should be able to LIST all recordings from a repo by callId", func() {
+			servers := testSession.LiveServers()
+
+			opts := mongo.MongoConfig{
+				DB:         "test",
+				ServerList: servers,
+			}
+
+			provider, err := mongo.NewSessionProvider(opts)
+			defer provider.Close()
+
+			Expect(err).ToNot(HaveOccurred())
+
+			repo := recording.NewMongoRecordingRepo(opts, provider)
+			list, _, err := repo.ListByCall("AC56445f9d0b977d270d02b7026719484c2b6bf369", "CAc000ffe439109e79fc386bd4140b0c9e75585f55")
+			Expect(err).ToNot(HaveOccurred())
+			Expect(list).ToNot(BeEmpty())
+			Expect(len(list)).To(Equal(1))
 		})
 	})
 
@@ -110,7 +156,44 @@ var _ = Describe("MongoRecordingRepo interface", func() {
 	})
 
 	Context("DELETE", func() {
-		XIt("should be able to DELETE a recording from a repo", func() {
+		It("should be able to DELETE a recording from a repo", func() {
+			servers := testSession.LiveServers()
+
+			opts := mongo.MongoConfig{
+				DB:         "test",
+				ServerList: servers,
+			}
+
+			provider, err := mongo.NewSessionProvider(opts)
+			defer provider.Close()
+
+			Expect(err).ToNot(HaveOccurred())
+
+			repo := recording.NewMongoRecordingRepo(opts, provider)
+
+			err = repo.Delete("AC56445f9d0b977d270d02b7026719484c2b6bf369", "RE3a01435a34c2f288d2804d14f48e2731fbfb72bf")
+
+			Expect(err).ToNot(HaveOccurred())
+		})
+
+		It("should throw an error with a missing recordingId", func() {
+			servers := testSession.LiveServers()
+
+			opts := mongo.MongoConfig{
+				DB:         "test",
+				ServerList: servers,
+			}
+
+			provider, err := mongo.NewSessionProvider(opts)
+			defer provider.Close()
+
+			Expect(err).ToNot(HaveOccurred())
+
+			repo := recording.NewMongoRecordingRepo(opts, provider)
+
+			err = repo.Delete("AC56445f9d0b977d270d02b7026719484c2b6bf369", "RE3")
+
+			Expect(err).To(HaveOccurred())
 		})
 	})
 })

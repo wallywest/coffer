@@ -1,4 +1,4 @@
-FROM golang:1.6.1-alpine
+FROM golang:1.6.2-alpine
 
 ADD docker-wait /bin/docker-wait
 ENV REPO_PATH https://gitlab.vailsys.com/vail-cloud-services/coffer.git
