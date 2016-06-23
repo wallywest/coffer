@@ -28,7 +28,7 @@ type Recording struct {
 	DateCreated time.Time     `bson:"dateCreated"`
 	DateUpdated time.Time     `bson:"dateUpdated"`
 	CallId      string        `bson:"callId"`
-	Duration    int64         `bson:"duration"`
+	DurationSec int64         `bson:"durationSec"`
 }
 
 type RecordingRepo interface {
