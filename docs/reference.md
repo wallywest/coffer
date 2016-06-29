@@ -20,7 +20,7 @@ Here is a what a typical record will look like in GridFS for a recording metadat
   "metadata" : {
     "accountId" : "AC56445f9d0b977d270d02b7026719484c2b6bf369",
     "callId" : "CA465c118caa4ed1ba2b91c62e6a4d3f9ee8d3cb8c",
-    "duration" : 8,
+    "durationSec" : 8,
     "fileId" : "13d84d3d993e788929a004292a80afd2df434605",
     "fileName" : "callrec_0_O287_172.20.152.36_5237_1.0.14_1454604276.wav",
     "fileSize" : 29964,
@@ -39,7 +39,7 @@ Here is a what a typical record will look like in GridFS for a recording metadat
 | fileName | unique id generated for asset, same as fileId |
 | metadata.accountId | accountId associated with the asset |
 | metadata.callId | callId associated with the asset |
-| metadata.duration | duration of the asset |
+| metadata.durationSec | duration of the asset |
 | metadata.fileId | unique id generated for asset, same as fileName |
 | metatdata.fileSize | size of the recorded asset, same as length |
 | metadata.mimeType | mimetype of the asset.  Only supports audio/wav currently |
