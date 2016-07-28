@@ -17,8 +17,8 @@ Service responsible for asset/recording management via the Pulse API
 
 
 ```bash
-go get gitlab.vailsys.com/vail-cloud-services/coffer
-cd $GOPATH/src/gitlab.vailsys.com/vail-cloud-services/coffer
+go get github.com/wallywest/coffer
+cd $GOPATH/src/github.com/wallywest/coffer
 ```
 
 to install vendored dependencies run
